@@ -93,7 +93,7 @@ export default class FetchImpl {
 
         // NPM package names must be lowercase
         let packageName = artifacts[i][0].toLowerCase();
-        let cmd = `npm pack @${scope}/${packageName}_sfpowerscripts_artifact@${version}`
+        let cmd = `npm pack "@${scope}/${packageName}_sfpowerscripts_artifact@${version}"`
 
         console.log(`Fetching artifact for ${artifacts[i][0]} version ${version}`);
         child_process.execSync(

@@ -180,7 +180,7 @@ export default class InstallDataPackageImpl {
   }
 
   private buildExecCommand(packageDirectory:string): string {
-    let command = `sfdx sfdmu:run --path ${packageDirectory} -s csvfile -u ${this.targetusername} --noprompt`;
+    let command = `sfdx sfdmu:run --path "${packageDirectory}" -s csvfile -u "${this.targetusername}" --noprompt`;
 
     SFPLogger.log(`Generated Command ${command}`,null,this.packageLogger);
     return command;

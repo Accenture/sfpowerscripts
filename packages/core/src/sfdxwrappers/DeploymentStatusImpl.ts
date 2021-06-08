@@ -19,7 +19,7 @@ export default class DeploymentStatusImpl extends SFDXCommand {
   }
 
   public async exec(quiet?: boolean): Promise<DeploymentStatus> {
-    
+
     let result;
     try
     {
@@ -54,6 +54,6 @@ export default class DeploymentStatusImpl extends SFDXCommand {
     return "DeploymentStatus";
   }
   getGeneratedSFDXCommandWithParams(): string {
-    return `sfdx force:mdapi:deploy:report --json -i ${this.deploymentId} -u ${this.target_org}`;
+    return `sfdx force:mdapi:deploy:report --json -i ${this.deploymentId} -u "${this.target_org}"`;
   }
 }

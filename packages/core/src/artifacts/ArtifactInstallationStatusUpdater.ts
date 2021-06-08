@@ -52,12 +52,12 @@ export default class ArtifactInstallationStatusUpdater {
         SFPLogger.log("Updating Org with new Artifacts "+packageName+" "+packageMetadata.package_version_number+" "+(artifactId?artifactId:""), null, packageLogger, LoggerLevel.INFO);
         if (artifactId == null) {
           cmdOutput = child_process.execSync(
-            `sfdx force:data:record:create --json -s SfpowerscriptsArtifact__c -u ${username}  -v "Name=${packageName} Tag__c=${packageMetadata.tag} Version__c=${packageMetadata.package_version_number} CommitId__c=${packageMetadata.sourceVersion}"`,
+            `sfdx force:data:record:create --json -s SfpowerscriptsArtifact__c -u "${username}"  -v "Name='${packageName}' Tag__c='${packageMetadata.tag}' Version__c=${packageMetadata.package_version_number} CommitId__c=${packageMetadata.sourceVersion}"`,
             { encoding: "utf8",stdio:"pipe"}
           );
         } else if (artifactId) {
           cmdOutput = child_process.execSync(
-            `sfdx force:data:record:update --json -s SfpowerscriptsArtifact__c -u ${username} -v "Name=${packageName} Tag__c=${packageMetadata.tag} Version__c=${packageMetadata.package_version_number} CommitId__c=${packageMetadata.sourceVersion}" -i ${artifactId}`,
+            `sfdx force:data:record:update --json -s SfpowerscriptsArtifact__c -u "${username}" -v "Name='${packageName}' Tag__c='${packageMetadata.tag}' Version__c=${packageMetadata.package_version_number} CommitId__c=${packageMetadata.sourceVersion}" -i ${artifactId}`,
             { encoding: "utf8" ,stdio:"pipe"}
           );
         }

@@ -78,8 +78,8 @@ describe("Given a target org and mdapidirectory, it should be deployed to the or
     );
     expect(
       deployMDAPIDirToOrgImpl.getGeneratedSFDXCommandWithParams()
-    ).toStrictEqual(
-      "sfdx force:mdapi:deploy -u test@example.com --deploydir mdapi --json --testlevel RunLocalTests --ignorewarnings"
+    ).toMatch(
+      "sfdx force:mdapi:deploy -u \"test@example.com\" --deploydir \"mdapi\" --json --testlevel RunLocalTests --ignorewarnings"
     );
     try {
       let result = await deployMDAPIDirToOrgImpl.exec(false);
@@ -124,8 +124,8 @@ describe("Given a target org and mdapidirectory, it should be deployed to the or
     );
     expect(
       deployMDAPIDirToOrgImpl.getGeneratedSFDXCommandWithParams()
-    ).toStrictEqual(
-      "sfdx force:mdapi:deploy -u test@example.com --deploydir mdapi --json --testlevel RunLocalTests --ignorewarnings"
+    ).toMatch(
+      "sfdx force:mdapi:deploy -u \"test@example.com\" --deploydir \"mdapi\" --json --testlevel RunLocalTests --ignorewarnings"
     );
     try {
       let result = await deployMDAPIDirToOrgImpl.exec(false);
@@ -171,8 +171,8 @@ describe("Given a target org and mdapidirectory, it should be deployed to the or
     );
     expect(
       deployMDAPIDirToOrgImpl.getGeneratedSFDXCommandWithParams()
-    ).toStrictEqual(
-      `sfdx force:mdapi:deploy -u test@example.com --deploydir mdapi --json --testlevel RunSpecifiedTests --runtests a,b --ignorewarnings`
+    ).toMatch(
+      `sfdx force:mdapi:deploy -u \"test@example.com\" --deploydir \"mdapi\" --json --testlevel RunSpecifiedTests --runtests \"a,b\" --ignorewarnings`
     );
     try {
       let result = await deployMDAPIDirToOrgImpl.exec(false);
@@ -191,7 +191,7 @@ describe("Given a target org and mdapidirectory, it should be deployed to the or
   });
 
 
-  
+
 
 let succefulDeployOut = {
   status: 0,

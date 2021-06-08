@@ -18,7 +18,7 @@ export default class PackageVersionListImpl extends SFDXCommand
     return "PackageVersionList"
   }
   getGeneratedSFDXCommandWithParams(): string {
-    return `sfdx force:package:list --json -v ${this.target_org} `;
+    return `sfdx force:package:list --json -v "${this.target_org}" `;
   }
 
 }

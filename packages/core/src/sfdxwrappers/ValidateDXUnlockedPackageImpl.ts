@@ -1,6 +1,5 @@
 import child_process = require("child_process");
 import { onExit } from "../utils/OnExit";
-import { isNullOrUndefined } from "util";
 import SFPLogger from "../utils/SFPLogger";
 
 
@@ -25,11 +24,11 @@ export default class ValidateDXUnlockedPackageImpl {
         command = `sfdx sfpowerkit:package:valid`;
 
 
-    if(!isNullOrUndefined(this.validate_package))
-    command+=` -n  ${this.validate_package}`;
+    if(this.validate_package)
+    command+=` -n "${this.validate_package}"`;
 
-    if(!isNullOrUndefined(this.bypass))
-    command+=` -b  ${this.bypass}`;
+    if(this.bypass)
+    command+=` -b "${this.bypass}"`;
 
 
     return command;

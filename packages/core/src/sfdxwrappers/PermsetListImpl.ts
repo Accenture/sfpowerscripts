@@ -8,7 +8,7 @@ export default class PermSetImpl {
   public exec() {
     //Find all permsets assigned to this user
     let queryResultJSON: string = child_process.execSync(
-      `sfdx force:data:soql:query -q "SELECT Id, PermissionSet.Name, Assignee.Username FROM PermissionSetAssignment WHERE Assignee.Username = '${this.username}'" -u ${this.target_org} --json`,
+      `sfdx force:data:soql:query -q "SELECT Id, PermissionSet.Name, Assignee.Username FROM PermissionSetAssignment WHERE Assignee.Username = '${this.username}'" -u "${this.target_org}" --json`,
       {
         encoding: "utf8",
         stdio: ["pipe", "pipe", "inherit"],

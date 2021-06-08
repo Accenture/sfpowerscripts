@@ -1,6 +1,5 @@
 import child_process = require("child_process");
 import { onExit } from "../utils/OnExit";
-import { isNullOrUndefined } from "util";
 import SFPLogger from "../utils/SFPLogger";
 
 
@@ -27,21 +26,21 @@ export default class AnalyzeWithPMDImpl {
         command = `sfdx sfpowerkit:source:pmd`;
 
 
-    if(!isNullOrUndefined(this.directory))
-    command+=` -d  ${this.directory}`;
+    if(this.directory)
+      command+=` -d  "${this.directory}"`;
 
 
-    if(!isNullOrUndefined(this.format))
-    command+=` -f  ${this.format}`;
+    if(this.format)
+      command+=` -f  ${this.format}`;
 
-    if(!isNullOrUndefined(this.ouputPath))
-    command+=` -o  ${this.ouputPath}`;
+    if(this.ouputPath)
+      command+=` -o  "${this.ouputPath}"`;
 
-    if(!isNullOrUndefined(this.ruleset) && this.ruleset.length>0)
-    command+=` -r  ${this.ruleset}`;
+    if(this.ruleset && this.ruleset.length>0)
+      command+=` -r  "${this.ruleset}"`;
 
-    if(!isNullOrUndefined(this.version))
-    command+=` --version=${this.version}`;
+    if(this.version)
+      command+=` --version=${this.version}`;
 
     command+=` --loglevel INFO`
 

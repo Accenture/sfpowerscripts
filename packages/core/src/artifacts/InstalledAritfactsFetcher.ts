@@ -10,7 +10,7 @@ export default class InstalledAritfactsFetcher {
       return await retry(
         async (bail) => {
           let cmdOutput = child_process.execSync(
-            `sfdx force:data:soql:query -q "SELECT Id, Name, CommitId__c, Version__c, Tag__c FROM SfpowerscriptsArtifact__c" -r json -u ${username}`,
+            `sfdx force:data:soql:query -q "SELECT Id, Name, CommitId__c, Version__c, Tag__c FROM SfpowerscriptsArtifact__c" -r json -u "${username}"`,
             { encoding: "utf8", stdio:"pipe" }
           );
           let result = JSON.parse(cmdOutput);

@@ -23,7 +23,7 @@ export default class PromoteUnlockedPackageImpl {
   }
 
   private  buildExecCommand(): string {
-    let command = `sfdx force:package:version:promote -v ${this.devhub_alias}`;
+    let command = `sfdx force:package:version:promote -v "${this.devhub_alias}"`;
     //package
     command += ` -p ${this.package_version_id}`;
     //noprompt

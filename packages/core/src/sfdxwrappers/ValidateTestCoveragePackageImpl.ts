@@ -18,7 +18,7 @@ export default class ValidateTestCoveragePackageImpl {
   }
 
   public async buildExecCommand(): Promise<string> {
-    let command = `sfdx sfpowerkit:package:version:codecoverage -v  ${this.target_org} -i ${this.package_version_id} --json`;
+    let command = `sfdx sfpowerkit:package:version:codecoverage -v  "${this.target_org}" -i ${this.package_version_id} --json`;
 
     return command;
   }

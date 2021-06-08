@@ -107,7 +107,7 @@ export default class Promote extends SfpowerscriptsCommand {
       let packageVersionList: any;
       if (this.flags.publishpromotedonly) {
         let packageVersionListJson: string = child_process.execSync(
-          `sfdx force:package:version:list --released -v ${this.flags.devhubalias} --json`,
+          `sfdx force:package:version:list --released -v "${this.flags.devhubalias}" --json`,
           {
             cwd: process.cwd(),
             stdio: ['ignore', 'pipe', 'pipe'],
@@ -306,7 +306,7 @@ export default class Promote extends SfpowerscriptsCommand {
       throw new Error(`Artifact ${packageName} ${packageVersionNumber} does not contain branch info. Please provide --npmtag flag explicitly, or re-build the artifact with the --branch flag.`);
     }
 
-    cmd += ` --tag ${tag}`;
+    cmd += ` --tag "${tag}"`;
 
     console.log(`Publishing ${packageName} Version ${packageVersionNumber} with tag ${tag}...`);
 
@@ -326,9 +326,9 @@ export default class Promote extends SfpowerscriptsCommand {
   ) {
     let cmd: string;
     if (process.platform !== 'win32') {
-      cmd = `bash -e ${this.flags.scriptpath} ${packageName} ${packageVersionNumber} ${artifact} ${this.flags.publishpromotedonly ? true : false}`;
+      cmd = `bash -e "${this.flags.scriptpath}" "${packageName}" ${packageVersionNumber} "${artifact}" ${this.flags.publishpromotedonly ? true : false}`;
     } else {
-      cmd = `cmd.exe /c ${this.flags.scriptpath} ${packageName} ${packageVersionNumber} ${artifact} ${this.flags.publishpromotedonly ? true : false}`;
+      cmd = `cmd.exe /c "${this.flags.scriptpath}" "${packageName}" ${packageVersionNumber} "${artifact}" ${this.flags.publishpromotedonly ? true : false}`;
     }
 
     console.log(`Publishing ${packageName} Version ${packageVersionNumber}...`);
@@ -377,7 +377,7 @@ export default class Promote extends SfpowerscriptsCommand {
 
       for (let packageTag of succesfullyPublishedPackageNamesForTagging) {
         child_process.execSync(
-          `git tag -a -m "${packageTag.name} ${packageTag.type} Package ${packageTag.version}" ${packageTag.tag} HEAD`
+          `git tag -a -m "${packageTag.name} ${packageTag.type} Package ${packageTag.version}" "${packageTag.tag}" HEAD`
         );
       }
 

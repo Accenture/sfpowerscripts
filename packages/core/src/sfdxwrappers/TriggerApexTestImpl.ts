@@ -17,14 +17,14 @@ export default class TriggerApexTestImpl extends SFDXCommand {
   getGeneratedSFDXCommandWithParams(): string {
     let command;
 
-    command = `sfdx force:apex:test:run -u ${this.target_org}`;
+    command = `sfdx force:apex:test:run -u "${this.target_org}"`;
 
     if (this.testOptions.synchronous) command += " --synchronous";
 
     command += ` --wait=${this.testOptions.wait_time}`;
     command += ` --resultformat=json`;
     command += ` --codecoverage`;
-    command += ` --outputdir=${this.testOptions.outputdir} `;
+    command += ` --outputdir="${this.testOptions.outputdir}" `;
 
     if (this.testOptions instanceof RunSpecifiedTestsOption)
       command += this.buildCommandForSpecifiedTests(this.testOptions);
@@ -39,7 +39,7 @@ export default class TriggerApexTestImpl extends SFDXCommand {
   }
 
   buildCommandForApexTestSuite(testOptions: RunApexTestSuitesOption) {
-    return `--testlevel=${testOptions.testLevel} --suitenames=${testOptions.suiteNames}`;
+    return `--testlevel=${testOptions.testLevel} --suitenames="${testOptions.suiteNames}"`;
   }
 
   private buildCommandForSpecifiedTests(
@@ -51,7 +51,7 @@ export default class TriggerApexTestImpl extends SFDXCommand {
       throw new Error(("No Apex Tests found in the package, Unable to proceed further"));
     }
 
-    return `--testlevel=${testOptions.testLevel} --classnames=${testOptions.specifiedTests}`;
+    return `--testlevel=${testOptions.testLevel} --classnames="${testOptions.specifiedTests}"`;
   }
   private buildCommandForLocalTestInOrg(testOptions: RunLocalTests): string {
     return `--testlevel=${testOptions.testLevel}`;
@@ -64,4 +64,3 @@ export default class TriggerApexTestImpl extends SFDXCommand {
     return super.exec(true);
   }
 }
-

@@ -98,7 +98,7 @@ export default class DeploySourceToOrgImpl {
       while (true) {
         try {
           result = child_process.execSync(
-            `sfdx force:mdapi:deploy:report --json -i ${deploy_id} -u ${this.target_org}`,
+            `sfdx force:mdapi:deploy:report --json -i ${deploy_id} -u "${this.target_org}"`,
             {
               cwd: this.project_directory,
               encoding: "utf8",
@@ -160,7 +160,7 @@ export default class DeploySourceToOrgImpl {
       let filepath=`sfpowerscripts/mdapiDeployReports`;
       fs.mkdirpSync(filepath);
       let child = child_process.exec(
-        `sfdx force:mdapi:deploy:report --json -i ${deploy_id} -u ${this.target_org}`,
+        `sfdx force:mdapi:deploy:report --json -i ${deploy_id} -u "${this.target_org}"`,
         {
           cwd: this.project_directory,
           encoding: "utf8",
@@ -199,12 +199,12 @@ export default class DeploySourceToOrgImpl {
   private buildExecCommand(): string {
     let apexclasses;
 
-    let command = `sfdx force:mdapi:deploy -u ${this.target_org} --soapdeploy`;
+    let command = `sfdx force:mdapi:deploy -u "${this.target_org}" --soapdeploy`;
 
     if (this.deployment_options["checkonly"]) command += ` -c`;
 
     //directory
-    command += ` -d ${this.mdapiDir}`;
+    command += ` -d "${this.mdapiDir}"`;
 
     //add json
     command += ` --json`;
@@ -215,11 +215,11 @@ export default class DeploySourceToOrgImpl {
       apexclasses = this.convertApexTestSuiteToListOfApexClasses(
         this.deployment_options["apextestsuite"]
       );
-      command += ` -r ${apexclasses}`;
+      command += ` -r "${apexclasses}"`;
     } else if (this.deployment_options["testlevel"] == "RunSpecifiedTests") {
       command += ` -l RunSpecifiedTests`;
       apexclasses = this.deployment_options["specified_tests"];
-      command += ` -r ${apexclasses}`;
+      command += ` -r "${apexclasses}"`;
     } else {
       command += ` -l ${this.deployment_options["testlevel"]}`;
     }
@@ -244,7 +244,7 @@ export default class DeploySourceToOrgImpl {
     );
 
     let result = child_process.execSync(
-      `sfdx sfpowerkit:source:apextestsuite:convert  -n ${apextestsuite} --json`,
+      `sfdx sfpowerkit:source:apextestsuite:convert  -n "${apextestsuite}" --json`,
       { cwd: this.project_directory, encoding: "utf8" }
     );
 

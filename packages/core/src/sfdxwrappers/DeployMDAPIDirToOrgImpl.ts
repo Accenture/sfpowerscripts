@@ -58,7 +58,7 @@ export default class DeployMDAPIDirToOrgImpl extends SFDXCommand {
     );
     await this.waitTillDeploymentIsDone(deploymentStatusImpl, quiet);
 
- 
+
     let deploymentStatus: DeploymentStatus = await this.getFinalDeploymentStatus(
       deploymentStatusImpl,
       quiet
@@ -69,7 +69,7 @@ export default class DeployMDAPIDirToOrgImpl extends SFDXCommand {
       result: deploymentStatus.result,
     };
     return deployResult;
-    
+
   }
 
   private printInitiationHeader() {
@@ -94,7 +94,7 @@ export default class DeployMDAPIDirToOrgImpl extends SFDXCommand {
     return deploymentStatusImpl.exec(
       quiet
     );
-  
+
   }
 
   private async waitTillDeploymentIsDone(
@@ -163,12 +163,12 @@ export default class DeployMDAPIDirToOrgImpl extends SFDXCommand {
     return "DeployMDAPIDirToOrg";
   }
   getGeneratedSFDXCommandWithParams(): string {
-    let command = `sfdx force:mdapi:deploy -u ${this.target_org}`;
+    let command = `sfdx force:mdapi:deploy -u "${this.target_org}"`;
 
     if (this.deploymentOptions.isCheckOnlyDeployment) command += ` -c`;
 
     //directory
-    command += ` --deploydir ${this.mdapiDirectory}`;
+    command += ` --deploydir "${this.mdapiDirectory}"`;
 
     //add json
     command += ` --json`;
@@ -178,9 +178,9 @@ export default class DeployMDAPIDirToOrgImpl extends SFDXCommand {
       command += ` --testlevel ${this.deploymentOptions.testLevel}`;
       if (this.deploymentOptions.testLevel == TestLevel.RunSpecifiedTests) {
         let apexclasses = this.deploymentOptions.specifiedTests.toString();
-        command += ` --runtests ${apexclasses.toString()}`;
+        command += ` --runtests "${apexclasses.toString()}"`;
       }
-    }    
+    }
     if (this.deploymentOptions.isIgnoreWarnings) {
       command += ` --ignorewarnings`;
     }

@@ -1,5 +1,4 @@
 import child_process = require("child_process");
-import { isNullOrUndefined } from "util";
 import { onExit } from "../../utils/OnExit";
 import PackageMetadata from "../../PackageMetadata";
 import SourcePackageGenerator from "../../generators/SourcePackageGenerator";
@@ -332,7 +331,7 @@ export default class CreateUnlockedPackageImpl {
     SFPLogger.log("Resolving project dependencies", null, this.packageLogger);
 
     let resolveResult = child_process.execSync(
-      `sfdx sfpowerkit:package:dependencies:list -p ${packageDescriptor["path"]} -v ${this.devhub_alias} -w --usedependencyvalidatedpackages`,
+      `sfdx sfpowerkit:package:dependencies:list -p "${packageDescriptor["path"]}" -v "${this.devhub_alias}" -w --usedependencyvalidatedpackages`,
       { cwd: workingDirectory, encoding: "utf8" }
     );
 
@@ -340,16 +339,16 @@ export default class CreateUnlockedPackageImpl {
   }
 
   private buildExecCommand(): string {
-    let command = `sfdx force:package:version:create -p ${this.sfdx_package}  -w ${this.wait_time} --definitionfile ${this.config_file_path} --json`;
+    let command = `sfdx force:package:version:create -p "${this.sfdx_package}"  -w ${this.wait_time} --definitionfile "${this.config_file_path}" --json`;
 
-    if (!isNullOrUndefined(this.version_number))
+    if (this.version_number)
       command += `  --versionnumber ${this.version_number}`;
 
     if (this.installationkeybypass) command += ` -x`;
     else command += ` -k ${this.installationkey}`;
 
-    if (!isNullOrUndefined(this.packageArtifactMetadata.tag))
-      command += ` -t ${this.packageArtifactMetadata.tag}`;
+    if (this.packageArtifactMetadata.tag)
+      command += ` -t "${this.packageArtifactMetadata.tag}"`;
 
     // TODO: Disabled temporarily until sfpowerkit dependencies list filters by branch
     // if (!isNullOrUndefined(this.packageArtifactMetadata.branch))
@@ -360,7 +359,7 @@ export default class CreateUnlockedPackageImpl {
     if (this.isSkipValidation && !this.isOrgDependentPackage)
       command += ` --skipvalidation`;
 
-    command += ` -v ${this.devhub_alias}`;
+    command += ` -v "${this.devhub_alias}"`;
 
     return command;
   }
@@ -368,7 +367,7 @@ export default class CreateUnlockedPackageImpl {
   private buildInfoCommand(subscriberPackageVersion: string): string {
     let command = `sfdx sfpowerkit:package:version:codecoverage -i ${subscriberPackageVersion}  --json`;
 
-    command += ` -v ${this.devhub_alias}`;
+    command += ` -v "${this.devhub_alias}"`;
 
     return command;
   }

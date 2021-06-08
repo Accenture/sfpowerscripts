@@ -27,7 +27,7 @@ export default class ValidateApexCoverageImpl  {
   }
 
   private buildExecCommand(): string {
-    let command = `npx sfdx sfpowerkit:org:orgcoverage -u  ${this.target_org} --json`;
+    let command = `npx sfdx sfpowerkit:org:orgcoverage -u "${this.target_org}" --json`;
     return command;
   }
 }

@@ -51,7 +51,7 @@ export default class AssignPermissionSetsImpl {
 
       try {
         let permsetAssignmentJson: string = child_process.execSync(
-          `npx sfdx force:user:permset:assign -n ${permSet} -u ${username} --json`,
+          `npx sfdx force:user:permset:assign -n "${permSet}" -u "${username}" --json`,
           {
             cwd: this.project_directory,
             encoding: "utf8",

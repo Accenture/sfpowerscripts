@@ -191,9 +191,9 @@ export default class PrepareImpl {
 
     return {totalallocated:this.totalToBeAllocated,success:finalizedResults.success,failed:finalizedResults.failed};
   }
-  
-  
-  //Fetch all checkpoints  
+
+
+  //Fetch all checkpoints
   private getcheckPointPackages() {
     console.log("Fetching checkpoints for prepare if any.....");
     let projectConfig = ProjectConfig.getSFDXPackageManifest(null);
@@ -537,12 +537,14 @@ export default class PrepareImpl {
 
     let cmd: string;
     if (scope)
-      cmd= `npm pack @${scope}/${packageName}_sfpowerscripts_artifact`;
+      cmd= `npm pack "@${scope}/${packageName}_sfpowerscripts_artifact"`;
     else
-      cmd = `npm pack ${packageName}_sfpowerscripts_artifact`;
+      cmd = `npm pack "${packageName}_sfpowerscripts_artifact"`;
 
-    if (npmTag)
-      cmd += `@${npmTag}`;
+    if (npmTag) {
+      cmd = cmd.slice(0, cmd.length -1); // Remove ending double quote
+      cmd += `@${npmTag}"`;
+    }
 
     child_process.execSync(cmd, {
       cwd: artifactDirectory,
@@ -558,9 +560,9 @@ export default class PrepareImpl {
 
     let cmd: string;
     if (process.platform !== "win32") {
-      cmd = `bash -e ${scriptPath} ${packageName} ${artifactDirectory}`;
+      cmd = `bash -e "${scriptPath}" "${packageName}" "${artifactDirectory}"`;
     } else {
-      cmd = `cmd.exe /c ${scriptPath} ${packageName}  ${artifactDirectory}`;
+      cmd = `cmd.exe /c "${scriptPath}" "${packageName}" "${artifactDirectory}"`;
     }
 
     child_process.execSync(cmd, {

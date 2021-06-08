@@ -11,7 +11,7 @@ export default class OrgDetails {
            SFPLogger.log("Querying Org Details", null, null, LoggerLevel.DEBUG);
 
             let cmdOutput = child_process.execSync(
-              `sfdx force:data:soql:query -q "SELECT Id, InstanceName, IsSandbox, Name, OrganizationType FROM Organization" -u ${username} --json`,
+              `sfdx force:data:soql:query -q "SELECT Id, InstanceName, IsSandbox, Name, OrganizationType FROM Organization" -u "${username}" --json`,
               { encoding: "utf8" }
             );
             let result = JSON.parse(cmdOutput);

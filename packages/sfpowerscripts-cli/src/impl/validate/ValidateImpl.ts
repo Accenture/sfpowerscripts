@@ -149,7 +149,7 @@ export default class ValidateImpl {
       if (scratchOrgUsername && this.props.devHubUsername ) {
           console.log(`Deleting scratch org`, scratchOrgUsername);
           child_process.execSync(
-            `sfdx force:org:delete -p -u ${scratchOrgUsername} -v ${this.props.devHubUsername}`,
+            `sfdx force:org:delete -p -u "${scratchOrgUsername}" -v "${this.props.devHubUsername}"`,
             {
               stdio: 'inherit',
               encoding: 'utf8'
@@ -163,7 +163,7 @@ export default class ValidateImpl {
 
   private authenticateDevHub(devHubUsername: string): void {
     child_process.execSync(
-      `sfdx auth:jwt:grant -u ${devHubUsername} -i ${this.props.client_id} -f ${this.props.jwt_key_file} -r https://login.salesforce.com`,
+      `sfdx auth:jwt:grant -u "${devHubUsername}" -i ${this.props.client_id} -f "${this.props.jwt_key_file}" -r https://login.salesforce.com`,
       {
         stdio: "inherit",
         encoding: "utf8"
@@ -174,7 +174,7 @@ export default class ValidateImpl {
   private deployShapeFile(shapeFile: string, scratchOrgUsername: string): void {
     console.log(`Deploying scratch org shape`, shapeFile);
     child_process.execSync(
-      `sfdx force:mdapi:deploy -f ${shapeFile} -u ${scratchOrgUsername} -w 30 --ignorewarnings`,
+      `sfdx force:mdapi:deploy -f "${shapeFile}" -u "${scratchOrgUsername}" -w 30 --ignorewarnings`,
       {
         stdio: 'inherit',
         encoding: 'utf8'
@@ -303,7 +303,7 @@ export default class ValidateImpl {
     try {
 
       queryResultJson = child_process.execSync(
-        `sfdx force:data:soql:query -q "SELECT Id, Name, CommitId__c, Version__c, Tag__c FROM SfpowerscriptsArtifact__c" -r json -u ${scratchOrgUsername}`,
+        `sfdx force:data:soql:query -q "SELECT Id, Name, CommitId__c, Version__c, Tag__c FROM SfpowerscriptsArtifact__c" -r json -u "${scratchOrgUsername}"`,
         {
           stdio: "pipe",
           encoding: "utf8"
@@ -328,7 +328,7 @@ export default class ValidateImpl {
   private authenticateToScratchOrg(scratchOrgUsername: string) {
     try {
       let grantJson = child_process.execSync(
-        `sfdx auth:jwt:grant -u ${scratchOrgUsername} -i ${this.props.client_id} -f ${this.props.jwt_key_file} -r https://test.salesforce.com --json`,
+        `sfdx auth:jwt:grant -u "${scratchOrgUsername}" -i ${this.props.client_id} -f "${this.props.jwt_key_file}" -r https://test.salesforce.com --json`,
         {
           stdio: "pipe",
           encoding: "utf8"

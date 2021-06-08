@@ -27,7 +27,7 @@ export default class DeployDestructiveManifestToOrgImpl {
   }
 
   private  buildExecCommand(): string {
-    let command = `sfdx sfpowerkit:org:destruct -u ${this.target_org} -m ${this.destructiveManifestPath}`;
+    let command = `sfdx sfpowerkit:org:destruct -u "${this.target_org}" -m "${this.destructiveManifestPath}"`;
 
 
     return command;

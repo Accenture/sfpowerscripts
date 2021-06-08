@@ -27,7 +27,7 @@ export default class ReconcileProfileAgainstOrgImpl {
   }
 
   private  buildExecCommand(): string {
-    let command = `sfdx sfpowerkit:source:profile:reconcile  -u ${this.target_org}`;
+    let command = `sfdx sfpowerkit:source:profile:reconcile  -u "${this.target_org}"`;
     return command;
   }
 }

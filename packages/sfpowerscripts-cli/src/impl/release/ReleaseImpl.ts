@@ -149,7 +149,7 @@ export default class ReleaseImpl {
 
       for (let pkg in packageDependencies) {
         if (!this.isPackageInstalledInOrg(packageDependencies[pkg], targetOrg)) {
-          let cmd = `sfdx force:package:install -p ${packageDependencies[pkg]} -u ${targetOrg} -w ${waitTime} -b ${waitTime} --noprompt`;
+          let cmd = `sfdx force:package:install -p "${packageDependencies[pkg]}" -u "${targetOrg}" -w ${waitTime} -b ${waitTime} --noprompt`;
 
           if (packagesToKeys?.[pkg])
             cmd += ` -k ${packagesToKeys[pkg]}`;
@@ -218,7 +218,7 @@ export default class ReleaseImpl {
   private isPackageInstalledInOrg(packageVersionId: string, targetUsername: string): boolean {
     try {
       SFPLogger.log(`Checking Whether Package with ID ${packageVersionId} is installed in  ${targetUsername}`);
-      let command = `sfdx sfpowerkit:package:version:info  -u ${targetUsername} --json`;
+      let command = `sfdx sfpowerkit:package:version:info  -u "${targetUsername}" --json`;
       let result = JSON.parse(child_process.execSync(command).toString());
       if (result.status === 0) {
         let packageInfos: PackageInfo[] = result.result;

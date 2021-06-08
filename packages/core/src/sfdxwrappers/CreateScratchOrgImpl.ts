@@ -38,7 +38,7 @@ export default class CreateScratchOrgImpl {
   }
 
   public async buildExecCommand(): Promise<string> {
-    let command = `npx sfdx force:org:create -v ${this.devhub} -s -f ${this.config_file_path} --json -a ${this.alias} -d ${this.daysToMaintain}`;
+    let command = `npx sfdx force:org:create -v "${this.devhub}" -s -f "${this.config_file_path}" --json -a "${this.alias}" -d ${this.daysToMaintain}`;
     return command;
   }
 }
