@@ -27,7 +27,7 @@
     "datadog-metrics": "^0.9.3",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.7",
-    "hot-shots": "^8.3.1",
+    "hot-shots": "^8.3.2",
     "ignore": "^5.1.6",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
